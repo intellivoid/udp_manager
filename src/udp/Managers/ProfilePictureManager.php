@@ -63,8 +63,24 @@
             copy($file, $OutputFile);
 
             // Resize and apply the resized version
-            ImageProcessor::resize_image($file, 360, 360);
+            ImageProcessor::resize_image($file, 640, 640);
             $OutputFile = $this->storage_location . DIRECTORY_SEPARATOR . $id . '.jpg';
+            if(file_exists($OutputFile))
+            {
+                unlink($OutputFile);
+            }
+            copy($file, $OutputFile);
+
+            ImageProcessor::resize_image($file, 360, 360);
+            $OutputFile = $this->storage_location . DIRECTORY_SEPARATOR . $id . '_small.jpg';
+            if(file_exists($OutputFile))
+            {
+                unlink($OutputFile);
+            }
+            copy($file, $OutputFile);
+
+            ImageProcessor::resize_image($file, 160, 160);
+            $OutputFile = $this->storage_location . DIRECTORY_SEPARATOR . $id . '_tiny.jpg';
             if(file_exists($OutputFile))
             {
                 unlink($OutputFile);
