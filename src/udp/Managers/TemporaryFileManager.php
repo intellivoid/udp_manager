@@ -30,6 +30,9 @@
         }
 
         /**
+         * Accepts a file upload request and saves it into the temporary file directory, returns the full
+         * location whe done.
+         *
          * @return string
          * @throws SystemException
          * @throws UnsupportedFileTypeException
@@ -37,6 +40,7 @@
          */
         public function accept_upload(): string
         {
+            // Verify the upload
             SecurityVerification::verify_upload();
 
             $finfo = new finfo(FILEINFO_MIME_TYPE);
@@ -49,6 +53,7 @@
                 hash('haval128,3', $_FILES['user_av_file']['tmp_name']), $extension
             );
 
+            // Save file to server
             if (!move_uploaded_file($_FILES['user_av_file']['tmp_name'], $output_file))
             {
                 throw new SystemException("Failed to move uploaded file");

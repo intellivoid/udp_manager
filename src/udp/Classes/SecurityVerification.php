@@ -4,9 +4,13 @@
     namespace udp\Classes;
 
 
+    use Exception;
     use finfo;
+    use udp\Abstracts\ImageType;
     use udp\Exceptions\FileUploadException;
+    use udp\Exceptions\InvalidImageException;
     use udp\Exceptions\UnsupportedFileTypeException;
+    use udp\Objects\ImageDetails;
 
     /**
      * Class SecurityVerification
@@ -58,5 +62,54 @@
             }
 
             return true;
+        }
+
+        /**
+         * Verifies if the file is an actual image
+         *
+         * @param string $file
+         * @return ImageDetails
+         * @throws InvalidImageException
+         * @throws UnsupportedFileTypeException
+         */
+        public static function verify_image(string $file): ImageDetails
+        {
+            try
+            {
+                $ImageSize = getimagesize($file);
+            }
+            catch(Exception $exception)
+            {
+                throw new InvalidImageException('Cannot process image size');
+            }
+
+            if(!$ImageSize)
+            {
+                throw new InvalidImageException('Cannot process image');
+            }
+
+            $valid_types = array(IMAGETYPE_JPEG, IMAGETYPE_PNG);
+
+            if(in_array($ImageSize[2],  $valid_types) == false)
+            {
+                throw new UnsupportedFileTypeException('The given file type is unsupported');
+            }
+
+            $ImageDetailsObject = new ImageDetails();
+            $ImageDetailsObject->Width = $ImageSize[0];
+            $ImageDetailsObject->Height = $ImageSize[1];
+
+            if($ImageSize[2] == IMAGETYPE_JPEG)
+            {
+                $ImageDetailsObject->ImageType = ImageType::JPEG;
+            }
+
+            if($ImageSize[2] == IMAGETYPE_PNG)
+            {
+                $ImageDetailsObject->ImageType = ImageType::PNG;
+            }
+
+            return $ImageDetailsObject;
+
         }
     }

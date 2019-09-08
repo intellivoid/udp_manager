@@ -7,7 +7,16 @@
         $udp = new \udp\udp('/etc/user_pictures');
         try
         {
-            print($udp->getTemporaryFileManager()->accept_upload());
+            $file = $udp->getTemporaryFileManager()->accept_upload();
+        }
+        catch(Exception $exception)
+        {
+            var_dump($exception);
+        }
+
+        try
+        {
+            $udp->getProfilePictureManager()->apply_avatar($file, 'test');
         }
         catch(Exception $exception)
         {
