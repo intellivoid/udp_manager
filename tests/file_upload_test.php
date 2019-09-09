@@ -12,6 +12,7 @@
         catch(Exception $exception)
         {
             var_dump($exception);
+            exit();
         }
 
         try
@@ -21,7 +22,9 @@
         catch(Exception $exception)
         {
             var_dump($exception);
+            exit();
         }
+
         exit();
     }
 ?>

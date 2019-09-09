@@ -94,7 +94,7 @@
             copy($file, $OutputFile);
 
             ImageProcessor::resize_image($file, 360, 360);
-            $OutputFile = $Directory .  'small.jpg';
+            $OutputFile = $Directory .  'preview.jpg';
             if(file_exists($OutputFile))
             {
                 unlink($OutputFile);
@@ -102,7 +102,7 @@
             copy($file, $OutputFile);
 
             ImageProcessor::resize_image($file, 160, 160);
-            $OutputFile = $Directory . 'preview.jpg';
+            $OutputFile = $Directory . 'small.jpg';
             if(file_exists($OutputFile))
             {
                 unlink($OutputFile);
