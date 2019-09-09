@@ -7,6 +7,7 @@
     use udp\Abstracts\ImageType;
     use udp\Classes\ImageProcessor;
     use udp\Classes\SecurityVerification;
+    use udp\Exceptions\AvatarNotFoundException;
     use udp\Exceptions\ImageTooSmallException;
     use udp\Exceptions\InvalidImageException;
     use udp\Exceptions\UnsupportedFileTypeException;
@@ -180,5 +181,33 @@
             }
 
             return true;
+        }
+
+        /**
+         * Returns an array of avatars available for the ID, throws an exception when it doesn't exist.
+         *
+         * The array contains a key and value construct
+         * [original, normal, preview, small, tiny]
+         *
+         * @param string $id
+         * @return array
+         * @throws AvatarNotFoundException
+         */
+        public function get_avatar(string $id): array
+        {
+            if($this->avatar_exists($id) == false)
+            {
+                throw new AvatarNotFoundException();
+            }
+
+            $Directory = $this->storage_location . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR;
+
+            return array(
+                'original'  => $Directory . 'original.jpg',
+                'normal'    => $Directory . 'normal.jpg',
+                'preview'   => $Directory . 'preview.jpg',
+                'small'     => $Directory . 'small.jpg',
+                'tiny'      => $Directory . 'tiny.jpg'
+            );
         }
     }
