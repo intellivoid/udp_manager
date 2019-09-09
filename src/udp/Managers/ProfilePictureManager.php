@@ -138,4 +138,47 @@
             $this->apply_avatar($OutputFile, $id);
             return true;
         }
+
+        /**
+         * Determines if the avatar exists
+         *
+         * @param string $id
+         * @return bool
+         */
+        public function avatar_exists(string $id): bool
+        {
+            $Directory = $this->storage_location . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR;
+
+            if(file_exists($Directory) == false)
+            {
+                return false;
+            }
+
+            if(file_exists($Directory . 'original.jpg') == false)
+            {
+                return false;
+            }
+
+            if(file_exists($Directory . 'normal.jpg') == false)
+            {
+                return false;
+            }
+
+            if(file_exists($Directory . 'preview.jpg') == false)
+            {
+                return false;
+            }
+
+            if(file_exists($Directory . 'small.jpg') == false)
+            {
+                return false;
+            }
+
+            if(file_exists($Directory . 'tiny.jpg') == false)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
