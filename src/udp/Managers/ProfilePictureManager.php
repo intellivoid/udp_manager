@@ -3,12 +3,14 @@
 
     namespace udp\Managers;
 
+    use Exception;
     use udp\Abstracts\ImageType;
     use udp\Classes\ImageProcessor;
     use udp\Classes\SecurityVerification;
     use udp\Exceptions\ImageTooSmallException;
     use udp\Exceptions\InvalidImageException;
     use udp\Exceptions\UnsupportedFileTypeException;
+    use udp\udp;
 
     /**
      * Class ProfilePictureManager
@@ -22,12 +24,26 @@
         private $storage_location;
 
         /**
+         * @var udp
+         */
+        private $udp;
+
+        /**
+         * @var string
+         */
+        private $tmp_location;
+
+        /**
          * ProfilePictureManager constructor.
          * @param string $storage_location
+         * @param string $tmp_location
+         * @param udp $udp
          */
-        public function __construct(string $storage_location)
+        public function __construct(string $storage_location, string $tmp_location, udp $udp)
         {
             $this->storage_location = $storage_location;
+            $this->tmp_location = $tmp_location;
+            $this->udp = $udp;
         }
 
         /**
@@ -86,6 +102,14 @@
             copy($file, $OutputFile);
 
             ImageProcessor::resize_image($file, 160, 160);
+            $OutputFile = $Directory . 'preview.jpg';
+            if(file_exists($OutputFile))
+            {
+                unlink($OutputFile);
+            }
+            copy($file, $OutputFile);
+
+            ImageProcessor::resize_image($file, 64, 64);
             $OutputFile = $Directory . 'tiny.jpg';
             if(file_exists($OutputFile))
             {
@@ -95,6 +119,23 @@
 
             // Finally delete the temporary file
             unlink($file);
+            return true;
+        }
+
+        /**
+         * @param string $id
+         * @return bool
+         * @throws ImageTooSmallException
+         * @throws InvalidImageException
+         * @throws UnsupportedFileTypeException
+         * @throws Exception
+         */
+        public function generate_avatar(string $id): bool
+        {
+            $OutputFile = $this->tmp_location . DIRECTORY_SEPARATOR . $id . '.png';
+            $ImageResource = $this->udp->getDisplayPictureGenerator()->getImageData($id, 640);
+            file_put_contents($this->tmp_location . DIRECTORY_SEPARATOR . $id . '.png', $ImageResource);
+            $this->apply_avatar($OutputFile, $id);
             return true;
         }
     }

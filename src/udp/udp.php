@@ -89,7 +89,7 @@
             }
 
             $this->temporary_file_manager = new TemporaryFileManager($this->tmp_data_location);
-            $this->profile_picture_manager = new ProfilePictureManager($this->user_pics_location);
+            $this->profile_picture_manager = new ProfilePictureManager($this->user_pics_location, $this->tmp_data_location, $this);
         }
 
         /**
