@@ -54,8 +54,14 @@
                 ImageProcessor::convert($file);
             }
 
+            $Directory = $this->storage_location . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR;
+            if(file_exists($Directory) == false)
+            {
+                mkdir($Directory);
+            }
+
             // Apply the original
-            $OutputFile = $this->storage_location . DIRECTORY_SEPARATOR . $id . '_original.jpg';
+            $OutputFile = $Directory . 'original.jpg';
             if(file_exists($OutputFile))
             {
                 unlink($OutputFile);
@@ -64,7 +70,7 @@
 
             // Resize and apply the resized version
             ImageProcessor::resize_image($file, 640, 640);
-            $OutputFile = $this->storage_location . DIRECTORY_SEPARATOR . $id . '.jpg';
+            $OutputFile = $Directory . 'normal.jpg';
             if(file_exists($OutputFile))
             {
                 unlink($OutputFile);
@@ -72,7 +78,7 @@
             copy($file, $OutputFile);
 
             ImageProcessor::resize_image($file, 360, 360);
-            $OutputFile = $this->storage_location . DIRECTORY_SEPARATOR . $id . '_small.jpg';
+            $OutputFile = $Directory .  'small.jpg';
             if(file_exists($OutputFile))
             {
                 unlink($OutputFile);
@@ -80,7 +86,7 @@
             copy($file, $OutputFile);
 
             ImageProcessor::resize_image($file, 160, 160);
-            $OutputFile = $this->storage_location . DIRECTORY_SEPARATOR . $id . '_tiny.jpg';
+            $OutputFile = $Directory . 'tiny.jpg';
             if(file_exists($OutputFile))
             {
                 unlink($OutputFile);
