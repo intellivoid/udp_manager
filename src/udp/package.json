@@ -1,0 +1,95 @@
+{
+    "package": {
+        "package_name": "net.intellivoid.udp",
+        "name": "User Display Picture Manager",
+        "version": "1.0.0.0",
+        "author": "Zi Xing Narrakas",
+        "organization": "Intellivoid",
+        "description": "Manages/Generates user display pictures safely",
+        "url": "https://github.com/intellivoid/udp_manager",
+        "dependencies": [],
+        "configuration": {
+            "autoload_method": "indexed",
+            "main": null,
+            "post_installation": [],
+            "pre_installation": []
+        }
+    },
+    "components": [
+        {
+            "required": true,
+            "file": "Abstracts/ImageType.php"
+        },
+        {
+            "required": true,
+            "file": "Classes/BaseGenerator.php"
+        },
+        {
+            "required": true,
+            "file": "Classes/DisplayPictureGenerator.php"
+        },
+        {
+            "required": true,
+            "file": "Classes/GdGenerator.php"
+        },
+        {
+            "required": true,
+            "file": "Classes/ImageProcessor.php"
+        },
+        {
+            "required": true,
+            "file": "Classes/SecurityVerification.php"
+        },
+        {
+            "required": true,
+            "file": "Classes/SvgGenerator.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/AvatarNotFoundException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/FileUploadException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/ImageTooSmallException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/InvalidImageException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/SystemException.php"
+        },
+        {
+            "required": true,
+            "file": "Exceptions/UnsupportedFileTypeException.php"
+        },
+        {
+            "required": true,
+            "file": "Interfaces/GeneratorInterface.php"
+        },
+        {
+            "required": true,
+            "file": "Managers/ProfilePictureManager.php"
+        },
+        {
+            "required": true,
+            "file": "Managers/TemporaryFileManager.php"
+        },
+        {
+            "required": true,
+            "file": "Objects/ImageDetails.php"
+        },
+        {
+            "required": true,
+            "file": "udp.php"
+        }
+    ],
+    "files": [
+        "udp.json"
+    ]
+}
