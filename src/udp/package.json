@@ -2,7 +2,7 @@
     "package": {
         "package_name": "net.intellivoid.udp",
         "name": "User Display Picture Manager",
-        "version": "1.0.0.0",
+        "version": "1.0.0.1",
         "author": "Zi Xing Narrakas",
         "organization": "Intellivoid",
         "description": "Manages/Generates user display pictures safely",

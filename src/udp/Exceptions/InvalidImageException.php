@@ -3,11 +3,13 @@
 
     namespace udp\Exceptions;
 
+    use Exception;
+
     /**
      * Class InvalidImageException
      * @package udp\Exceptions
      */
-    class InvalidImageException extends \Exception
+    class InvalidImageException extends Exception
     {
         /**
          * InvalidImageException constructor.
